@@ -52,6 +52,8 @@ class Settings(BaseSettings):
     # Instagram API
     INSTAGRAM_GRAPH_API_VERSION: str = "v12.0"
     INSTAGRAM_API_BASE_URL: str = f"https://graph.facebook.com/{INSTAGRAM_GRAPH_API_VERSION}"
+    INSTAGRAM_APP_ID: Optional[str] = None
+    INSTAGRAM_APP_SECRET: Optional[str] = None
 
     # Email
     SMTP_TLS: bool = True

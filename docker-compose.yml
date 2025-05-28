@@ -19,6 +19,8 @@ services:
       - FIRST_SUPERUSER_EMAIL=admin@example.com
       - FIRST_SUPERUSER_PASSWORD=admin
       - BACKEND_CORS_ORIGINS=["http://localhost:3000"]
+      - INSTAGRAM_APP_ID=your_instagram_app_id_from_compose
+      - INSTAGRAM_APP_SECRET=your_instagram_app_secret_from_compose
     depends_on:
       - db
       - redis
@@ -37,6 +39,8 @@ services:
       - POSTGRES_DB=instaflow
       - REDIS_HOST=redis
       - SECRET_KEY=changeme
+      - INSTAGRAM_APP_ID=your_instagram_app_id_from_compose
+      - INSTAGRAM_APP_SECRET=your_instagram_app_secret_from_compose
     depends_on:
       - backend
       - redis
