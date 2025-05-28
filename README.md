@@ -34,11 +34,13 @@ cd instaflow
 ```bash
 docker-compose up -d
 ```
+   **Important Note:** After the services have started (especially the `db` service), you **must** initialize or update the database schema.
 
 3. Initialize the database:
 ```bash
 docker-compose exec backend alembic upgrade head
 ```
+   This command applies any pending database migrations. Without this step, the backend may not function correctly.
 
 4. Access the application:
 - Frontend: http://localhost:3000
