@@ -1,0 +1,535 @@
+Product Requirements Document: InstaFlow (Instagram Automation Platform)
+1. Introduction
+* 1.1. Purpose: This document outlines the product requirements for InstaFlow, a platform designed to provide Instagram automation capabilities similar to ManyChat. It details the features, functionalities, and specifications required for the development and launch of the product.
+* 1.2. Goals: 
+o To empower businesses and creators on Instagram to automate their interactions, marketing, and customer service.
+o To provide a user-friendly interface for building and managing Instagram automation flows.
+o To offer a robust and reliable platform that integrates seamlessly with Instagram's messaging APIs.
+o To offer tiered pricing plans to cater to different user needs and business sizes.
+2. User Stories
+* As a business owner, I want to automatically reply to direct messages (DMs) based on keywords or questions so I can save time and provide instant responses.
+* As a marketer, I want to create automated welcome messages for new followers so I can engage them immediately and introduce my brand.
+* As an e-commerce seller, I want to automate order confirmations and shipping updates via DMs so I can keep my customers informed.
+* As a content creator, I want to set up automated responses to comments on my posts so I can drive engagement and answer frequently asked questions.
+* As a marketing agency, I want to manage multiple Instagram accounts from a single dashboard so I can efficiently handle automation for my clients.
+* As a user, I want to visually build automation flows using a drag-and-drop interface so I don't need coding skills.
+* As a user, I want to segment my audience based on their interactions so I can send targeted and personalized messages.
+* As a user, I want to track the performance of my automation flows with analytics and reporting so I can optimize my strategies.
+* As a user, I want to integrate InstaFlow with other marketing tools (e.g., email marketing platforms, CRM) so I can streamline my workflows.
+* As a user, I want to set up keyword triggers in comments and DMs to initiate specific automation flows.
+* As a user, I want to create interactive elements within my automated messages, such as buttons and quick replies, to guide user interactions.
+* As a user, I want to schedule automated messages to be sent at specific times or intervals.
+* As a user, I want to personalize automated messages using user data (e.g., name, interaction history).
+* As an administrator, I want to manage user accounts, billing, and platform settings.
+3. Functional Requirements
+* 3.1. Instagram Account Connection: 
+o Ability for users to securely connect their Instagram Business accounts to the InstaFlow platform via official Instagram APIs.
+o Support for connecting multiple Instagram accounts under a single InstaFlow account (depending on the subscription plan).
+o Clear instructions and troubleshooting for account connection issues.
+* 3.2. Flow Builder: 
+o Visual, drag-and-drop interface for creating automated conversation flows.
+o Nodes for various actions: 
+* Sending text messages.
+* Sending images and videos.
+* Sending audio files.
+* Displaying quick reply buttons.
+* Displaying carousel elements.
+* Adding delays.
+* Setting conditions (if/then logic based on user input or attributes).
+* Adding user tags.
+* Triggering external integrations (future enhancement).
+* Requesting user input (text, email, phone number).
+o Ability to create branching logic within flows based on user responses or conditions.
+o Real-time preview of the flow.
+o Ability to save, duplicate, and organize flows.
+o Version control for flows (history of changes).
+* 3.3. Triggers: 
+o Welcome Message: Automatically send a message to new followers.
+o Keyword Triggers (DMs): Initiate flows based on specific keywords or phrases in incoming direct messages.
+o Keyword Triggers (Comments): Initiate flows when users comment on posts with specific keywords.
+o Story Mentions: Trigger flows when the connected account is mentioned in an Instagram Story.
+o Live Comment Triggers (Future): Initiate flows based on comments during live videos.
+* 3.4. Audience Segmentation: 
+o Ability to segment users based on: 
+* Tags assigned during automation flows.
+* Interactions with specific flows or messages.
+* Custom user properties (e.g., lead source, purchase history - future enhancement).
+o Ability to create and manage segments.
+* 3.5. Broadcasting: 
+o Ability to send one-off broadcast messages to segmented audiences (within Instagram's messaging policies).
+o Scheduling options for broadcast messages.
+* 3.6. Live Chat (Human Takeover): 
+o Inbox view to see all ongoing conversations.
+o Ability for human agents to take over automated conversations.
+o Notifications for new messages requiring human intervention.
+o Assignment of conversations to specific agents (future enhancement).
+o Internal notes and collaboration features for agents (future enhancement).
+* 3.7. Analytics and Reporting: 
+o Dashboard to visualize key metrics: 
+* Number of active contacts.
+* Flow completion rates.
+* Message delivery and open rates.
+* User engagement with buttons and quick replies.
+* Performance of different automation flows.
+* Growth of the contact list.
+o Ability to filter and export data.
+* 3.8. Integrations:
+o APIs or native integrations with popular marketing platforms (e.g., Mailchimp, ActiveCampaign, HubSpot).
+o Webhook support for connecting to other applications.
+o E-commerce platform integrations (e.g., Shopify, WooCommerce).
+* 3.9. User Management and Roles: 
+o Ability for account owners to invite team members with different roles and permissions (e.g., admin, editor, agent).
+* 3.10. Billing and Subscription Management: 
+o Clear display of pricing plans and features.
+o Secure payment processing.
+o Ability for users to manage their subscriptions (upgrade, downgrade, cancel).
+o Invoicing and payment history.
+4. Non-Functional Requirements
+* 4.1. Performance: 
+o Responsiveness: The platform should be responsive and load quickly across different devices (desktop, tablet, mobile).
+o Scalability: The platform should be able to handle a growing number of users, connected accounts, and message volumes without performance degradation.
+o Reliability: The platform should be stable and available with minimal downtime.
+* 4.2. Security: 
+o Secure storage of user data and Instagram credentials.
+o Compliance with relevant data privacy regulations (e.g., GDPR, CCPA).
+o Protection against unauthorized access and malicious attacks.
+o Regular security audits and updates.
+* 4.3. Usability: 
+o Intuitive and user-friendly interface.
+o Clear navigation and information architecture.
+o Comprehensive documentation and tutorials.
+o Easy onboarding process for new users.
+* 4.4. Maintainability: 
+o Well-structured and documented codebase for easy maintenance and updates.
+o Modular design to facilitate the addition of new features.
+o Efficient logging and monitoring systems.
+* 4.5. Accessibility: 
+o Adherence to accessibility guidelines (e.g., WCAG) to ensure usability for users with disabilities (future consideration for MVP).
+* 4.6. Localization (Future Enhancement): 
+o Support for multiple languages.
+o Adaptation of the interface and content for different regions.
+
+LOW LEVEL DESIGN
+1. Introduction
+This Low-Level Design (LLD) document provides a detailed technical specification for the InstaFlow platform, an Instagram automation solution. Its primary purpose is to serve as a precise blueprint for automated code generation, ensuring consistency and clarity across different modules and layers of the application. It defines the system architecture, data models, API specifications, and key component responsibilities.
+2. System Architecture
+InstaFlow will follow a microservices-oriented architecture (or a well-modularized monolithic architecture for MVP, with clear separation of concerns) with a clear distinction between frontend and backend components.
+Key Components:
+* Frontend Application: A single-page application (SPA) built with React.js, responsible for user interface, interaction logic, and API communication with the backend.
+* Backend API: A RESTful API serving as the central hub for business logic, data persistence, and integration with the Instagram Graph API.
+* Instagram Graph API: Meta's official API for programmatic interaction with Instagram Business accounts (messaging, comments, media, webhooks).
+* Webhook Receiver: A dedicated endpoint within the Backend API to receive real-time updates from Instagram (e.g., new DMs, comments, mentions).
+* Database: A persistent data store for all application data (users, accounts, flows, contacts, messages, etc.).
+3. Data Model
+This section defines the core entities and their attributes. Data types are specified for automated schema generation.
+3.1. User Represents a user of the InstaFlow platform.
+* userId: UUID (Primary Key)
+* email: string (Unique)
+* passwordHash: string
+* firstName: string
+* lastName: string
+* createdAt: timestamp
+* updatedAt: timestamp
+* subscriptionPlanId: UUID (Foreign Key to SubscriptionPlan)
+* status: enum('active', 'inactive', 'suspended')
+3.2. InstagramAccount Represents a connected Instagram Business account.
+* instagramAccountId: UUID (Primary Key)
+* userId: UUID (Foreign Key to User)
+* instagramPageId: string (Facebook Page ID linked to Instagram Business Account)
+* instagramUserId: string (Instagram User ID from Graph API)
+* instagramUsername: string
+* accessToken: string (Long-lived access token for Graph API)
+* tokenExpiresAt: timestamp
+* status: enum('connected', 'disconnected', 'error')
+* createdAt: timestamp
+* updatedAt: timestamp
+3.3. Flow Represents an automated conversation flow.
+* flowId: UUID (Primary Key)
+* instagramAccountId: UUID (Foreign Key to InstagramAccount)
+* name: string
+* description: string
+* flowDefinition: JSONB (Stores the structured definition of the flow, see FlowDefinition below)
+* status: enum('active', 'inactive', 'draft')
+* createdAt: timestamp
+* updatedAt: timestamp
+3.3.1. FlowDefinition (JSONB Structure for flowDefinition field in Flow) This structure defines the nodes and connections of a flow.
+JSON
+{
+  "startNodeId": "node_1",
+  "nodes": [
+    {
+      "id": "node_1",
+      "type": "start",
+      "name": "Start Flow",
+      "connections": [
+        { "targetNodeId": "node_2", "condition": null }
+      ]
+    },
+    {
+      "id": "node_2",
+      "type": "message",
+      "name": "Welcome Message",
+      "content": {
+        "text": "Hello {{contact.firstName}}! Welcome to our page. How can I help you today?",
+        "mediaUrl": null,
+        "buttons": [
+          { "type": "quick_reply", "text": "Browse Products", "payload": "BROWSE_PRODUCTS" },
+          { "type": "quick_reply", "text": "Contact Support", "payload": "CONTACT_SUPPORT" }
+        ]
+      },
+      "connections": [
+        { "targetNodeId": "node_3", "condition": { "type": "button_payload", "value": "BROWSE_PRODUCTS" } },
+        { "targetNodeId": "node_4", "condition": { "type": "button_payload", "value": "CONTACT_SUPPORT" } }
+      ]
+    },
+    {
+      "id": "node_3",
+      "type": "tag_contact",
+      "name": "Tag: Browsed Products",
+      "tagName": "browsed_products",
+      "connections": [
+        { "targetNodeId": "node_5", "condition": null }
+      ]
+    },
+    {
+      "id": "node_4",
+      "type": "human_takeover",
+      "name": "Human Takeover",
+      "messageToAgent": "User requested support.",
+      "connections": [] // End of flow or handled by human
+    },
+    {
+      "id": "node_5",
+      "type": "wait",
+      "name": "Wait 1 Hour",
+      "durationSeconds": 3600,
+      "connections": [
+        { "targetNodeId": "node_6", "condition": null }
+      ]
+    },
+    {
+      "id": "node_6",
+      "type": "get_input",
+      "name": "Ask Email",
+      "prompt": "Can I get your email for updates?",
+      "inputType": "email",
+      "saveToAttribute": "email",
+      "connections": [
+        { "targetNodeId": "node_7", "condition": { "type": "input_valid", "value": true } },
+        { "targetNodeId": "node_8", "condition": { "type": "input_valid", "value": false } }
+      ]
+    }
+    // ... other node types (e.g., carousel, condition, external_api_call)
+  ]
+}
+Node Types (examples):
+* start: Entry point of a flow.
+* message: Sends a text message, optionally with media and buttons/quick replies.
+* tag_contact: Adds a tag to the contact.
+* human_takeover: Marks conversation for human agent.
+* wait: Pauses the flow for a specified duration.
+* get_input: Prompts user for specific input (text, email, phone).
+* condition: Branches flow based on contact attributes or message content.
+* carousel: Sends a carousel of media cards.
+* external_api_call: (Future) Makes an API call to an external service.
+Connection Conditions (examples):
+* null: Unconditional connection (default).
+* button_payload: Triggered by a specific button payload.
+* keyword: Triggered by a keyword in user's response.
+* input_valid: Triggered if user input is valid (for get_input nodes).
+* attribute_equals: Triggered if a contact attribute matches a value.
+3.4. Trigger Defines how a flow is initiated.
+* triggerId: UUID (Primary Key)
+* flowId: UUID (Foreign Key to Flow)
+* instagramAccountId: UUID (Foreign Key to InstagramAccount)
+* type: enum('welcome_message', 'dm_keyword', 'comment_keyword', 'story_mention')
+* keyword: string (For dm_keyword, comment_keyword. Can be comma-separated for multiple keywords)
+* postPermalink: string (Optional, for comment_keyword on a specific post)
+* status: enum('active', 'inactive')
+* createdAt: timestamp
+* updatedAt: timestamp
+3.5. Contact Represents an Instagram user who has interacted with an InstagramAccount via InstaFlow.
+* contactId: UUID (Primary Key)
+* instagramAccountId: UUID (Foreign Key to InstagramAccount)
+* instagramUserId: string (Instagram User ID from Graph API)
+* instagramUsername: string
+* firstName: string (From Instagram profile, if available)
+* lastName: string (From Instagram profile, if available)
+* profilePictureUrl: string
+* lastInteractionAt: timestamp
+* currentFlowId: UUID (Optional, Foreign Key to Flow, if currently in a flow)
+* currentFlowStepNodeId: string (Optional, current node ID in the flow)
+* flowContext: JSONB (Stores temporary data for the current flow, e.g., user input)
+* tags: string[] (Array of tags associated with the contact)
+* customAttributes: JSONB (Stores custom key-value pairs, e.g., {"email": "...", "phone": "..."})
+* createdAt: timestamp
+* updatedAt: timestamp
+3.6. MessageLog Logs all incoming and outgoing messages.
+* messageLogId: UUID (Primary Key)
+* instagramAccountId: UUID (Foreign Key to InstagramAccount)
+* contactId: UUID (Foreign Key to Contact)
+* direction: enum('inbound', 'outbound')
+* type: enum('text', 'image', 'video', 'button_response', 'quick_reply_response')
+* content: JSONB (Stores message content, e.g., {"text": "...", "mediaUrl": "..."})
+* timestamp: timestamp
+* isAutomated: boolean (True if sent by a flow, false if by human)
+* flowId: UUID (Optional, Foreign Key to Flow, if part of a flow)
+3.7. Conversation Represents a continuous chat thread, primarily for the Live Chat feature.
+* conversationId: UUID (Primary Key)
+* instagramAccountId: UUID (Foreign Key to InstagramAccount)
+* contactId: UUID (Foreign Key to Contact)
+* status: enum('open', 'closed', 'pending_human')
+* assignedAgentId: UUID (Optional, Foreign Key to User for agent assignment)
+* lastMessageId: UUID (Foreign Key to MessageLog, last message in conversation)
+* startedAt: timestamp
+* closedAt: timestamp (Optional)
+* createdAt: timestamp
+* updatedAt: timestamp
+3.8. SubscriptionPlan Defines different pricing tiers.
+* planId: UUID (Primary Key)
+* name: string
+* description: string
+* priceMonthly: decimal
+* maxInstagramAccounts: integer
+* maxContacts: integer
+* maxFlows: integer
+* features: string[] (List of features included, e.g., ["live_chat", "analytics"])
+* createdAt: timestamp
+* updatedAt: timestamp
+4. API Design (Backend - RESTful)
+All API endpoints will be prefixed with /api/v1. Authentication will be handled via JWT tokens in the Authorization header (Bearer <token>).
+4.1. Authentication & User Management
+* POST /api/v1/auth/register 
+o Description: Registers a new user.
+o Request Body: {"email": "string", "password": "string", "firstName": "string", "lastName": "string"}
+o Response: {"userId": "UUID", "email": "string", "token": "string"} (HTTP 201 Created)
+* POST /api/v1/auth/login 
+o Description: Authenticates a user.
+o Request Body: {"email": "string", "password": "string"}
+o Response: {"userId": "UUID", "email": "string", "token": "string"} (HTTP 200 OK)
+* GET /api/v1/users/me 
+o Description: Get current authenticated user's profile.
+o Response: {"userId": "UUID", "email": "string", "firstName": "string", "lastName": "string", "subscriptionPlanId": "UUID"} (HTTP 200 OK)
+4.2. Instagram Account Management
+* POST /api/v1/instagram-accounts 
+o Description: Connects a new Instagram Business Account. Requires Facebook Page ID and long-lived access token.
+o Request Body: {"instagramPageId": "string", "instagramUserId": "string", "instagramUsername": "string", "accessToken": "string", "tokenExpiresAt": "timestamp"}
+o Response: {"instagramAccountId": "UUID", "instagramUsername": "string", "status": "connected"} (HTTP 201 Created)
+* GET /api/v1/instagram-accounts 
+o Description: Lists all connected Instagram accounts for the authenticated user.
+o Response: [{"instagramAccountId": "UUID", "instagramUsername": "string", "status": "string", ...}] (HTTP 200 OK)
+* DELETE /api/v1/instagram-accounts/{instagramAccountId} 
+o Description: Disconnects an Instagram account.
+o Response: {"message": "Account disconnected"} (HTTP 204 No Content)
+4.3. Flow Management
+* POST /api/v1/instagram-accounts/{instagramAccountId}/flows 
+o Description: Creates a new flow for a specific Instagram account.
+o Request Body: {"name": "string", "description": "string", "flowDefinition": "JSONB"}
+o Response: {"flowId": "UUID", "name": "string", "status": "draft"} (HTTP 201 Created)
+* GET /api/v1/instagram-accounts/{instagramAccountId}/flows 
+o Description: Lists all flows for a specific Instagram account.
+o Response: [{"flowId": "UUID", "name": "string", "status": "string", ...}] (HTTP 200 OK)
+* GET /api/v1/flows/{flowId} 
+o Description: Retrieves a specific flow's details, including its definition.
+o Response: {"flowId": "UUID", "name": "string", "description": "string", "flowDefinition": "JSONB", "status": "string", ...} (HTTP 200 OK)
+* PUT /api/v1/flows/{flowId} 
+o Description: Updates an existing flow's details or definition.
+o Request Body: {"name": "string", "description": "string", "flowDefinition": "JSONB", "status": "string"} (All fields optional, only provide what needs updating)
+o Response: {"flowId": "UUID", "name": "string", "status": "string", ...} (HTTP 200 OK)
+* DELETE /api/v1/flows/{flowId} 
+o Description: Deletes a flow.
+o Response: {"message": "Flow deleted"} (HTTP 204 No Content)
+4.4. Trigger Management
+* POST /api/v1/flows/{flowId}/triggers 
+o Description: Creates a new trigger for a flow.
+o Request Body: {"type": "enum", "keyword": "string", "postPermalink": "string"}
+o Response: {"triggerId": "UUID", "type": "string", "status": "active"} (HTTP 201 Created)
+* GET /api/v1/flows/{flowId}/triggers 
+o Description: Lists triggers for a specific flow.
+o Response: [{"triggerId": "UUID", "type": "string", "keyword": "string", "status": "string", ...}] (HTTP 200 OK)
+* PUT /api/v1/triggers/{triggerId} 
+o Description: Updates a trigger's status or details.
+o Request Body: {"status": "enum('active', 'inactive')", "keyword": "string"}
+o Response: {"triggerId": "UUID", "status": "string", ...} (HTTP 200 OK)
+* DELETE /api/v1/triggers/{triggerId} 
+o Description: Deletes a trigger.
+o Response: {"message": "Trigger deleted"} (HTTP 204 No Content)
+4.5. Contact & Conversation Management (Live Chat)
+* GET /api/v1/instagram-accounts/{instagramAccountId}/contacts 
+o Description: Lists contacts for a specific Instagram account. Supports pagination and filtering.
+o Query Params: page, limit, search (by username/name), tag
+o Response: {"contacts": [{"contactId": "UUID", "instagramUsername": "string", "lastInteractionAt": "timestamp", "tags": ["string"], ...}], "total": "integer"} (HTTP 200 OK)
+* GET /api/v1/contacts/{contactId} 
+o Description: Retrieves a specific contact's details.
+o Response: {"contactId": "UUID", "instagramUsername": "string", "firstName": "string", "tags": ["string"], "customAttributes": "JSONB", ...} (HTTP 200 OK)
+* POST /api/v1/contacts/{contactId}/tags 
+o Description: Adds tags to a contact.
+o Request Body: {"tags": ["string"]}
+o Response: {"contactId": "UUID", "tags": ["string"]} (HTTP 200 OK)
+* DELETE /api/v1/contacts/{contactId}/tags 
+o Description: Removes tags from a contact.
+o Request Body: {"tags": ["string"]}
+o Response: {"contactId": "UUID", "tags": ["string"]} (HTTP 200 OK)
+* GET /api/v1/instagram-accounts/{instagramAccountId}/conversations 
+o Description: Lists conversations for Live Chat inbox. Supports filtering by status.
+o Query Params: status (open, closed, pending_human), page, limit
+o Response: {"conversations": [{"conversationId": "UUID", "contactId": "UUID", "instagramUsername": "string", "status": "string", "lastMessageContent": "string", "lastMessageTimestamp": "timestamp", ...}], "total": "integer"} (HTTP 200 OK)
+* GET /api/v1/conversations/{conversationId}/messages 
+o Description: Retrieves message history for a specific conversation.
+o Response: [{"messageLogId": "UUID", "direction": "string", "type": "string", "content": "JSONB", "timestamp": "timestamp", "isAutomated": "boolean", ...}] (HTTP 200 OK)
+* POST /api/v1/conversations/{conversationId}/messages 
+o Description: Sends a message from a human agent.
+o Request Body: {"text": "string", "mediaUrl": "string"} (one of text/mediaUrl required)
+o Response: {"messageLogId": "UUID", "status": "sent"} (HTTP 201 Created)
+* PUT /api/v1/conversations/{conversationId}/status 
+o Description: Updates conversation status (e.g., close, mark_pending_human).
+o Request Body: {"status": "enum('open', 'closed', 'pending_human')"}
+o Response: {"conversationId": "UUID", "status": "string"} (HTTP 200 OK)
+4.6. Analytics
+* GET /api/v1/instagram-accounts/{instagramAccountId}/analytics/summary 
+o Description: Provides a summary of key metrics for an Instagram account.
+o Query Params: startDate, endDate
+o Response: {"totalContacts": "integer", "newContacts": "integer", "totalMessagesSent": "integer", "totalMessagesReceived": "integer", "flowCompletionRate": "decimal", ...} (HTTP 200 OK)
+* GET /api/v1/flows/{flowId}/analytics 
+o Description: Provides detailed analytics for a specific flow.
+o Query Params: startDate, endDate
+o Response: {"flowId": "UUID", "starts": "integer", "completions": "integer", "completionRate": "decimal", "nodeEngagement": [{"nodeId": "string", "engagements": "integer"}], ...} (HTTP 200 OK)
+4.7. Webhook Endpoint (Backend - Instagram Inbound)
+* POST /api/v1/webhooks/instagram 
+o Description: Receives real-time updates from Instagram (DMs, comments, mentions).
+o Request Body: (Instagram Graph API webhook payload - varies by event type)
+o Response: HTTP 200 OK (or HTTP 400 Bad Request if validation fails)
+o Note: This endpoint requires Instagram's webhook verification process (GET request with hub.mode, hub.challenge, hub.verify_token).
+5. Component Design
+5.1. Frontend Application (React.js)
+* Auth Module: Handles user registration, login, session management (JWT storage), and routing protection.
+* Dashboard View: Overview of connected accounts, quick stats, and navigation.
+* Instagram Accounts View: List, connect, disconnect Instagram accounts.
+* Flow Builder View: 
+o Canvas for drag-and-drop node placement and connection.
+o Sidebar for node configuration (message content, buttons, conditions, etc.).
+o Flow saving, loading, activation/deactivation.
+o Real-time preview of flow logic.
+* Triggers View: Manage triggers (welcome, keyword, story mention) for each flow.
+* Contacts View: Browse, search, filter contacts; view contact details and message history.
+* Live Chat Inbox View: 
+o List of active conversations.
+o Chat interface for sending/receiving messages.
+o Ability to take over conversations, close them, add notes.
+* Analytics View: Display charts and tables for flow performance, contact growth, message metrics.
+* Settings View: User profile, subscription management, team management.
+* API Service Layer: Centralized module for making API calls to the backend, handling authentication tokens, and error responses.
+* State Management: (e.g., React Context API, Zustand, or Redux) for managing global application state.
+5.2. Backend Services/Modules
+* Auth Service: User registration, login, JWT generation and validation.
+* User Service: CRUD operations for User entities, subscription management.
+* Instagram Account Service: Handles connecting/disconnecting accounts, managing access tokens.
+* Flow Service: 
+o CRUD operations for Flow entities.
+o Validation of flowDefinition structure.
+o Logic for activating/deactivating flows.
+* Trigger Service: CRUD operations for Trigger entities.
+* Instagram Integration Service: 
+o Responsible for all interactions with the Instagram Graph API (sending messages, retrieving user info).
+o Handles long-lived access token refreshing.
+o Manages webhook subscriptions with Instagram.
+* Webhook Handler: 
+o Receives and validates incoming Instagram webhooks.
+o Parses webhook payloads (DM, comment, mention events).
+o Dispatches events to the Automation Engine for processing.
+* Automation Engine: 
+o The core logic for executing flows.
+o When an inbound message/event is received (via Webhook Handler): 
+* Identifies the Contact and InstagramAccount.
+* Determines if the contact is currently in a flow.
+* If not in a flow, checks for matching Triggers.
+* If a trigger matches or contact is in a flow, traverses the FlowDefinition (JSONB) node by node.
+* Executes node actions (send message, add tag, wait, etc.).
+* Updates Contact state (currentFlowId, currentFlowStepNodeId, flowContext, tags, customAttributes).
+* Logs messages to MessageLog.
+* Manages Conversation status (e.g., pending_human if human_takeover node is hit).
+o Uses a queueing system (e.g., Redis Queue, RabbitMQ) for asynchronous message sending and flow execution to handle rate limits and ensure reliability.
+* Contact Service: CRUD operations for Contact entities, managing tags and custom attributes.
+* Conversation Service: Manages Conversation entities, assigns agents, handles status changes.
+* Message Log Service: Records all inbound and outbound messages.
+* Analytics Service: Aggregates data from MessageLog, Flow, Contact to generate reports and metrics.
+* Database Access Layer (DAL): Abstraction layer for all database interactions, ensuring consistent data access and validation.
+6. Key Flows/Sequences
+6.1. User Onboarding & Instagram Account Connection
+1. User Registration/Login: Frontend sends credentials to /api/v1/auth/register or /api/v1/auth/login. Backend authenticates, generates JWT, and returns it.
+2. Connect Instagram Account: 
+o Frontend redirects user to Facebook's OAuth flow (for Instagram Business Account connection).
+o User grants permissions.
+o Facebook redirects back to Frontend with a short-lived access token and Facebook Page ID.
+o Frontend sends instagramPageId, short-lived token to Backend's /api/v1/instagram-accounts/exchange-token (or similar endpoint).
+o Backend exchanges short-lived token for long-lived token with Facebook Graph API.
+o Backend fetches Instagram Business Account details (username, ID) using the long-lived token.
+o Backend creates InstagramAccount record, subscribes to Instagram webhooks for this account.
+o Backend returns instagramAccountId to Frontend.
+6.2. Inbound Message Processing (Webhook Flow)
+1. Instagram Webhook: Instagram sends a POST request to /api/v1/webhooks/instagram with a message/comment/mention payload.
+2. Webhook Handler: 
+o Validates the incoming request signature.
+o Parses the payload to identify instagramAccountId, instagramUserId, message content, and event type.
+o Looks up or creates Contact record if new.
+o Looks up or updates Conversation record.
+o Logs message to MessageLog.
+o Automation Engine Trigger: 
+* Checks if Contact is currently in a Flow. If yes, processes the message as a response to the current flow step.
+* If not in a flow, iterates through active Triggers for the instagramAccountId to find a match (e.g., dm_keyword, comment_keyword, welcome_message for new followers).
+* If a Trigger matches, initiates the associated Flow.
+o Pushes flow execution task to a queue.
+3. Automation Engine (Queue Worker): 
+o Pulls task from queue.
+o Retrieves FlowDefinition for the currentFlowId and Contact state.
+o Traverses the FlowDefinition from the current node (or start node if new flow).
+o Executes node logic (e.g., sends message via Instagram Integration Service, updates Contact tags, sets currentFlowStepNodeId).
+o If a wait node is encountered, schedules a delayed task for future execution.
+o If human_takeover node is hit, updates Conversation status to pending_human.
+6.3. Human Agent Responds (Live Chat Flow)
+1. Agent Views Inbox: Frontend fetches conversations from /api/v1/instagram-accounts/{instagramAccountId}/conversations?status=pending_human.
+2. Agent Selects Conversation: Frontend fetches message history from /api/v1/conversations/{conversationId}/messages.
+3. Agent Sends Message: Frontend sends message content to /api/v1/conversations/{conversationId}/messages (POST).
+4. Backend: 
+o Receives message.
+o Logs message to MessageLog (direction: outbound, isAutomated: false).
+o Sends message to Instagram Graph API via Instagram Integration Service.
+o Updates Conversation status to open.
+o Clears Contact's currentFlowId and currentFlowStepNodeId (as human has taken over).
+7. Error Handling Strategy
+* API Errors: 
+o Standard HTTP status codes (400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found, 500 Internal Server Error).
+o Consistent JSON error response format: {"code": "string_error_code", "message": "human_readable_error_message", "details": "optional_debug_info"}.
+* Internal Errors: 
+o Comprehensive logging (e.g., using Winston/Loguru) with different severity levels (info, warn, error, fatal).
+o Centralized error monitoring (e.g., Sentry, ELK stack).
+o Graceful degradation where possible (e.g., if Instagram API is down, retry with exponential backoff).
+* Flow Execution Errors: 
+o If a node execution fails (e.g., invalid media URL), log the error, mark the contact's flow as paused/errored, and potentially notify an administrator.
+o Provide mechanisms for manual intervention or flow recovery.
+8. Authentication & Authorization
+* Authentication: JWT (JSON Web Tokens) for stateless authentication. 
+o Upon successful login, a JWT is issued containing userId and roles.
+o JWT is sent in Authorization: Bearer <token> header for all protected API calls.
+o Backend validates JWT signature and expiration.
+* Authorization: Role-Based Access Control (RBAC). 
+o Roles: admin, user, agent.
+o admin: Full access to all features, user management, billing.
+o user: Manages own Instagram accounts, flows, contacts, analytics.
+o agent: Access to Live Chat inbox, can respond to conversations.
+o API endpoints will have middleware to check user's role and associated instagramAccountId ownership for resource access.
+9. Proposed Technology Stack
+* Frontend: 
+o Framework: React.js (with Next.js for SSR/SSG benefits if needed for public pages)
+o Styling: Tailwind CSS
+o State Management: Zustand or React Context API
+o UI Components: Shadcn/ui (for pre-built, accessible components)
+o Charting: Recharts (for analytics)
+* Backend: 
+o Language: Node.js (with Express.js) or Python (with FastAPI/Django REST Framework)
+o Database: PostgreSQL (for relational data and JSONB support for FlowDefinition)
+o ORM: Sequelize (Node.js) or SQLAlchemy (Python)
+o Queueing: Redis (for simple job queues and caching) or RabbitMQ (for more robust messaging)
+o Logging: Winston (Node.js) or Loguru (Python)
+o Authentication: jsonwebtoken (Node.js) or PyJWT (Python)
+* Deployment: Docker, Kubernetes (for scalability), AWS/GCP/Azure.
